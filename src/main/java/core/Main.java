@@ -20,6 +20,7 @@ public class Main extends ListenerAdapter {
         builder.setToken(Token.TOKEN);
         builder.setAutoReconnect(true);
         builder.addEventListeners(new MessageListener());
+
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing(Config.PREFIX+"help"));
         builder.build();

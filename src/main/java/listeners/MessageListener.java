@@ -20,6 +20,7 @@ public class MessageListener extends ListenerAdapter
         long responseNumber = event.getResponseNumber();//The amount of discord events that JDA has received since the last reconnect.
 
         //Event specific information
+        Guild guild = event.getGuild();
         User author = event.getAuthor();                //The user that sent the message
         Message message = event.getMessage();           //The message that was received.
         MessageChannel channel = event.getChannel();    //This is the MessageChannel that the message was sent to.
@@ -29,14 +30,13 @@ public class MessageListener extends ListenerAdapter
         Member member = event.getMember();          //This Member that sent the message. Contains Guild specific information about the User!
 
 
+
         msg = msg.replace(Config.PREFIX,"");
         if(msg.startsWith("help")){
             commands.help.help(event);
-        }else if(msg.startsWith("")){
-
+        }else if(msg.startsWith("clear")) {
+            commands.clear.clear(event);
         }
-
-
 
     }
 }

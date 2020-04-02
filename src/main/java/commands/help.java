@@ -10,9 +10,6 @@ import util.Config;
 
 
 public class help {
-    public static void main(){
-
-    }
 
     public static void help(MessageReceivedEvent event){
 

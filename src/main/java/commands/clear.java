@@ -12,6 +12,7 @@ public class clear {
 
         if(clearmsg == ""){
             System.out.println("int");
+            
 
 
 

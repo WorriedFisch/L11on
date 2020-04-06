@@ -12,17 +12,17 @@ import util.Config;
 public class help {
 
     public static void help(MessageReceivedEvent event){
-
         MessageChannel channel = event.getChannel();
-    if (event.isFromType(ChannelType.TEXT)){
-        channel.sendMessage(Config.HELPMASSAGE).queue();
+        String messageId = event.getMessageId();
+
+        if (event.isFromType(ChannelType.TEXT)){
+            channel.purgeMessagesById(messageId);
+            channel.sendMessage(Config.HELPMASSAGE.build()).queue();
+        }
+        else if (event.isFromType(ChannelType.PRIVATE)){
+            PrivateChannel privateChannel = event.getPrivateChannel();
+            privateChannel.sendMessage(Config.HELPMASSAGE.build()).queue();
+        }
 
     }
-    else if (event.isFromType(ChannelType.PRIVATE)){
-        PrivateChannel privateChannel = event.getPrivateChannel();
-        privateChannel.sendMessage(Config.HELPMASSAGE).queue();
-    }
-
-    }
-
 }

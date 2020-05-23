@@ -23,5 +23,7 @@ public class GuildJoinListener extends ListenerAdapter {
 
         }
 
+
+
     }
 }

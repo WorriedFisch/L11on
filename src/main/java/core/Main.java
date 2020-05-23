@@ -10,10 +10,8 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
-import util.Config;
-import util.Infos;
-import util.SQLManager;
-import util.Token;
+import util.*;
+
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,7 +39,7 @@ public class Main extends ListenerAdapter {
 
 
         System.out.println("Bot online");
-
+        webhooks.webhook();
 
 
         BufferedReader();

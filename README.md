@@ -1,2 +1,2 @@
 # Discord-Bot
-Mein erster Bot
+So ein Bot

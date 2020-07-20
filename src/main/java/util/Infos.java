@@ -1,6 +1,5 @@
 package util;
 
-
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.ClientType;
 import net.dv8tion.jda.api.entities.Guild;
@@ -24,22 +23,21 @@ public class Infos {
     public static void TimeandDate() {
 
 
-        SimpleDateFormat timeformat = new SimpleDateFormat("kk:mm");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Guild guild = shardMan.getGuildById(Config.GUILDID);
-        VoiceChannel channel = guild.getVoiceChannelById("704268736374243459");
-        channel.getManager().setName("⌚"+ timeformat.format(new Date()) +"📅"+ dateFormat.format(new Date())).complete();
+        VoiceChannel channel = guild.getVoiceChannelById(Config.DateChannelId);
+        channel.getManager().setName("📅"+ dateFormat.format(new Date())).complete();
 
     }
     public static void Useranzahl(){
         Guild guild = shardMan.getGuildById(Config.GUILDID);
-        VoiceChannel channel = guild.getVoiceChannelById("704268797795762187");
+        VoiceChannel channel = guild.getVoiceChannelById(Config.memberCountChannelId);
         channel.getManager().setName("\uD83D\uDCC8Useranzahl: "+guild.getMemberCount()).complete();
     }
     public static void Online(){
         int onlineMembers = 0;
         Guild guild = shardMan.getGuildById(Config.GUILDID);
-        VoiceChannel channel = guild.getVoiceChannelById("704268857736691793");
+        VoiceChannel channel = guild.getVoiceChannelById(Config.onlineMemberCountId);
         List<Member> members = guild.getMembers();
         for (Member m: members) {
             if (m.getOnlineStatus() != OnlineStatus.OFFLINE){

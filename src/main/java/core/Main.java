@@ -1,9 +1,6 @@
 package core;
 
-import listeners.GuildJoinListener;
-import listeners.MessageListener;
-import listeners.ReactionRoleListener;
-import listeners.VoiceListener;
+import listeners.*;
 import net.dv8tion.jda.api.OnlineStatus;
 
 import net.dv8tion.jda.api.entities.*;
@@ -21,7 +18,7 @@ public class Main extends ListenerAdapter {
 
 
     public static ShardManager shardMan;
-    public static void main(String[] Args) throws LoginException{
+    public static void main(String[] args) throws LoginException{
 
         LiteSQL.connect();
         SQLManager.onCreate();
@@ -31,7 +28,13 @@ public class Main extends ListenerAdapter {
 
         builder.setToken(Token.TOKEN);
         builder.setAutoReconnect(true);
-        builder.addEventListeners(new MessageListener(), new VoiceListener(), new GuildJoinListener(), new ReactionRoleListener());
+        builder.addEventListeners(
+                new MessageListener(),
+                new VoiceListener(),
+                new GuildJoinListener(),
+                new ReactionRoleListener()
+        );
+
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing(Config.PREFIX+"help"));
 
@@ -39,8 +42,6 @@ public class Main extends ListenerAdapter {
 
 
         System.out.println("Bot online");
-        webhooks.webhook();
-
 
         BufferedReader();
         timer();

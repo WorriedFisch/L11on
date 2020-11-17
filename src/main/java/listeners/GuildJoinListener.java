@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import util.Config;
 
+import java.io.File;
+
 
 public class GuildJoinListener extends ListenerAdapter {
 
@@ -16,14 +18,6 @@ public class GuildJoinListener extends ListenerAdapter {
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event){
         Member member = event.getMember();
-        Guild guild = event.getGuild();
-        for (String roleId: Config.CategorieRoles) {
-
-            guild.addRoleToMember(member, event.getGuild().getRoleById(roleId)).queue();
-
-        }
-
-
 
     }
 }

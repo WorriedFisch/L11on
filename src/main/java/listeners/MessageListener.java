@@ -1,5 +1,6 @@
 package listeners;
 
+import commands.sendpic;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -32,6 +33,10 @@ public class MessageListener extends ListenerAdapter
             //commands.react.react(event);
         }else if(msg.startsWith("sendEmoji")){
             commands.sendEmoji.sendEmoji(event);
+        }else if(msg.startsWith("sendpic")){
+            commands.sendpic.sendpic(event);
+        }else if(msg.startsWith("leave")){
+            commands.leave.leave(event);
         }
 
         TextChannel channel = event.getTextChannel();

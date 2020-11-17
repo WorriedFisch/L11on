@@ -17,7 +17,7 @@ public class help {
 
         if (event.isFromType(ChannelType.TEXT)){
             channel.purgeMessagesById(messageId);
-            channel.sendMessage(Config.HELPMASSAGE.build()).queue();
+            channel.sendMessage("verfügbare commands sind: sendpic, sendnudes").queue();
         }
         else if (event.isFromType(ChannelType.PRIVATE)){
             PrivateChannel privateChannel = event.getPrivateChannel();

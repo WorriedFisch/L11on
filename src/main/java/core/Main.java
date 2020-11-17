@@ -1,12 +1,16 @@
 package core;
 
 import listeners.*;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import util.*;
 
 import javax.security.auth.login.LoginException;
@@ -16,29 +20,30 @@ import java.io.InputStreamReader;
 
 public class Main extends ListenerAdapter {
 
-
-    public static ShardManager shardMan;
+    public static JDA jda;
+    public static JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT);
     public static void main(String[] args) throws LoginException{
 
         LiteSQL.connect();
         SQLManager.onCreate();
 
 
-        DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
-
-        builder.setToken(Token.TOKEN);
-        builder.setAutoReconnect(true);
-        builder.addEventListeners(
+        jda = jdaBuilder.createDefault(Token.Token)
+                .setAutoReconnect(true)
+                //.enableIntents(GatewayIntent.GUILD_MEMBERS)
+                //.setMemberCachePolicy(MemberCachePolicy.ALL)
+                .addEventListeners(
                 new MessageListener(),
                 new VoiceListener(),
-                new GuildJoinListener(),
-                new ReactionRoleListener()
-        );
+                new GuildJoinListener()
+        ).build();
 
-        builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.playing(Config.PREFIX+"help"));
 
-        shardMan = builder.build();
+
+        jdaBuilder.setStatus(OnlineStatus.ONLINE);
+        jdaBuilder.setActivity(Activity.playing(Config.PREFIX+"help"));
+
+
 
 
         System.out.println("Bot online");
@@ -56,7 +61,7 @@ public class Main extends ListenerAdapter {
             try {
                 while((line = reader.readLine()) != null){
                     if (line.equalsIgnoreCase("exit")) {
-                        if(shardMan != null){
+                        if(jdaBuilder != null){
                             shutdown();
                         }
                     }else {
@@ -73,8 +78,8 @@ public class Main extends ListenerAdapter {
 
     public static void shutdown(){
         shutdown = true;
-        shardMan.setStatus(OnlineStatus.OFFLINE);
-        shardMan.shutdown();
+        jdaBuilder.setStatus(OnlineStatus.OFFLINE);
+        jda.shutdown();
         LiteSQL.disconnect();
         System.out.println("Bot offline");
     }

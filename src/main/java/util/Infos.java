@@ -12,31 +12,33 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static core.Main.shardMan;
+import static core.Main.jda;
 
 public class Infos {
     public static void main() {
+        /*
         TimeandDate();
         Useranzahl();
         Online();
+         */
     }
     public static void TimeandDate() {
 
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        Guild guild = shardMan.getGuildById(Config.GUILDID);
+        Guild guild = jda.getGuildById(Config.GUILDID);
         VoiceChannel channel = guild.getVoiceChannelById(Config.DateChannelId);
         channel.getManager().setName("📅"+ dateFormat.format(new Date())).complete();
 
     }
     public static void Useranzahl(){
-        Guild guild = shardMan.getGuildById(Config.GUILDID);
+        Guild guild = jda.getGuildById(Config.GUILDID);
         VoiceChannel channel = guild.getVoiceChannelById(Config.memberCountChannelId);
         channel.getManager().setName("\uD83D\uDCC8Useranzahl: "+guild.getMemberCount()).complete();
     }
     public static void Online(){
         int onlineMembers = 0;
-        Guild guild = shardMan.getGuildById(Config.GUILDID);
+        Guild guild = jda.getGuildById(Config.GUILDID);
         VoiceChannel channel = guild.getVoiceChannelById(Config.onlineMemberCountId);
         List<Member> members = guild.getMembers();
         for (Member m: members) {

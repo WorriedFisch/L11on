@@ -8,7 +8,7 @@ import static core.Main.jda;
 public class leave {
     public static void leave(MessageReceivedEvent event){
 
-        if (event.getAuthor().getIdLong() == (Config.OwnerId)){
+        if (event.getAuthor().getId().equals(Config.OwnerId)){
             System.out.println("leave gleich");
 
             event.getGuild().leave().queue();

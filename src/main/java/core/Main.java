@@ -30,8 +30,8 @@ public class Main extends ListenerAdapter {
 
         jda = jdaBuilder.createDefault(Token.Token)
                 .setAutoReconnect(true)
-                //.enableIntents(GatewayIntent.GUILD_MEMBERS)
-                //.setMemberCachePolicy(MemberCachePolicy.ALL)
+                .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .addEventListeners(
                 new MessageListener(),
                 new VoiceListener(),
@@ -82,6 +82,7 @@ public class Main extends ListenerAdapter {
         jda.shutdown();
         LiteSQL.disconnect();
         System.out.println("Bot offline");
+        System.exit(0);
     }
 
     public static void timer() {

@@ -1,13 +1,9 @@
 package util;
 
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.ClientType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import util.Config;
-
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

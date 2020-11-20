@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import util.*;
 
@@ -23,15 +24,16 @@ public class Main extends ListenerAdapter {
     public static JDA jda;
     public static JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT);
     public static void main(String[] args) throws LoginException{
-
-        LiteSQL.connect();
-        SQLManager.onCreate();
+        //LiteSQL.connect();
+        //SQLManager.onCreate();
 
 
         jda = jdaBuilder.createDefault(Token.Token)
                 .setAutoReconnect(true)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                .enableIntents(GatewayIntent.GUILD_PRESENCES)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
+                .setChunkingFilter(ChunkingFilter.ALL)
                 .addEventListeners(
                 new MessageListener(),
                 new VoiceListener(),

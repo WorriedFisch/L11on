@@ -1,11 +1,9 @@
-package commands;
+package command.commands;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
-import java.nio.channels.Channel;
 
 
 public class sendEmoji {

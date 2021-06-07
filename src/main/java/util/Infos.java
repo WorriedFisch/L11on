@@ -8,7 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static core.Main.jda;
+import static core.DiscordBot.jda;
+
 
 public class Infos {
     public static void main() {

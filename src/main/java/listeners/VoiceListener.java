@@ -76,17 +76,17 @@ public class VoiceListener extends ListenerAdapter
 
     @Override
     public void onGuildVoiceJoin(GuildVoiceJoinEvent event){
-        createChannel(event);
+        //createChannel(event);
 
     }
     @Override
     public void onGuildVoiceLeave(GuildVoiceLeaveEvent event){
 
-        deleteChannel(event);
+        //deleteChannel(event);
     }
     @Override
     public void onGuildVoiceMove(GuildVoiceMoveEvent event){
-
+        /*
 
         if (channels.contains(event.getChannelLeft())) {
             VoiceChannel channel = event.getChannelLeft();
@@ -105,7 +105,7 @@ public class VoiceListener extends ListenerAdapter
 
 
 
-            ResultSet set = LiteSQL.onQuery("SELECT channelid FROM tempvoices WHERE guildid = " + guildid + " AND channelid = " + joinedchannelid);
+            ResultSet set = LiteSQL.onQuery("SELECT channelid FROM tempvoice WHERE guildid = " + guildid + " AND channelid = " + joinedchannelid);
 
 
             try {
@@ -133,5 +133,7 @@ public class VoiceListener extends ListenerAdapter
             }
 
         }
+
+         */
     }
 }

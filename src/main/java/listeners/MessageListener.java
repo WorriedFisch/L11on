@@ -1,43 +1,46 @@
 package listeners;
 
-import net.dv8tion.jda.api.JDA;
+
+import core.CommandManager;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import me.duncte123.botcommons.BotCommons;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import util.Config;
 
-public class MessageListener extends ListenerAdapter
-{
+public class MessageListener extends ListenerAdapter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageListener.class);
+    private final CommandManager manager = new CommandManager();
+
     @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
-        JDA jda = event.getJDA();                       //JDA, the core of the api.
-        long responseNumber = event.getResponseNumber();//The amount of discord events that JDA has received since the last reconnect
-        Message message = event.getMessage();
+    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
+        User user = event.getAuthor();
 
-        String msg = message.getContentDisplay();              //This returns a human readable version of the Message. Similar to
-
-        msg = msg.replace(Config.PREFIX, "");
-        if (msg.startsWith("help")) {
-            commands.help.help(event);
-        } else if (msg.startsWith("clear")) {
-            commands.clear.clear(event);
-        } else if (msg.startsWith("exit")) {
-            commands.exit.exit(event);
-        } else if (msg.startsWith("react")) {
-            //commands.react.react(event);
-        } else if (msg.startsWith("sendEmoji")) {
-            commands.sendEmoji.sendEmoji(event);
-        } else if (msg.startsWith("sendpic")) {
-            commands.sendpic.sendpic(event);
-        } else if (msg.startsWith("leave")) {
-            commands.leave.leave(event);
-        } else if (msg.startsWith("addRole")) {
-            commands.manageRole.addRole(event);
-        } else if (msg.startsWith("removeRole")) {
-            commands.manageRole.removeRole(event);
+        if (user.isBot() || event.isWebhookMessage()) {
+            return;
         }
+
+        String prefix = Config.PREFIX;
+        String raw = event.getMessage().getContentRaw();
+
+
+        if (raw.equalsIgnoreCase(prefix + "shutdown")
+                && user.getId().equals(Config.ownerId)) {
+            LOGGER.info("Shutting down");
+            event.getJDA().shutdown();
+            BotCommons.shutdown(event.getJDA());
+    }
+
+        if (raw.startsWith(prefix)) {
+            manager.handle(event);
+        }
+
 
 
     }

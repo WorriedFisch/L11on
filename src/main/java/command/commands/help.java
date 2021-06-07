@@ -1,4 +1,4 @@
-package commands;
+package command.commands;
 
 
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -17,7 +17,7 @@ public class help {
 
         if (event.isFromType(ChannelType.TEXT)){
             channel.purgeMessagesById(messageId);
-            channel.sendMessage("verfügbare commands sind: sendpic, sendnudes").queue();
+            channel.sendMessage("verfügbare command.commands sind: sendpic, sendnudes").queue();
         }
         else if (event.isFromType(ChannelType.PRIVATE)){
             PrivateChannel privateChannel = event.getPrivateChannel();

@@ -1,4 +1,4 @@
-package command.commands;
+package command.commands.UtilityCommands;
 
 import command.CommandContext;
 import command.ICommand;
@@ -19,19 +19,27 @@ public class changeNicknameCommand implements ICommand {
     public void handle(CommandContext ctx) {
 
         GuildMessageReceivedEvent event = ctx.getEvent();
+        List<Role> roles = event.getMessage().getMentionedRoles();
 
 
-            List<Role> roles = event.getMessage().getMentionedRoles();
-            MessageChannel channel = event.getChannel();
-            String nickname = event.getMessage().getContentDisplay().split(" ")[1];
 
-            Guild guild = event.getGuild();
-            Member executingMember = event.getMember();
+        MessageChannel channel = event.getChannel();
+        String nickname = event.getMessage().getContentDisplay().split(" ")[1];
+        Guild guild = event.getGuild();
+
+        Member executingMember = event.getMember();
 
 
-            if (roles.size() == 0){
-                channel.sendMessage("You need to specify a Role").queue();
-            }
+        if (!executingMember.hasPermission(Permission.NICKNAME_MANAGE) || !executingMember.getId().equals(Config.ownerId))   {
+            channel.sendMessage("You don't have the permission to Change the Nicknames").queue();
+            return;
+        }
+
+        if (roles.size() == 0){
+            channel.sendMessage("You need to specify a Role").queue();
+            return;
+        }
+
 
             if (executingMember.hasPermission(Permission.NICKNAME_MANAGE) || executingMember.getId().equals(Config.ownerId)){
                 for (Role role: roles) {
@@ -40,8 +48,6 @@ public class changeNicknameCommand implements ICommand {
                         member.modifyNickname(nickname).queue();
                     }
                 }
-            }else{
-                channel.sendMessage("You don't have the permission to Change the Nicknames").queue();
             }
         }
 
@@ -53,6 +59,11 @@ public class changeNicknameCommand implements ICommand {
     @Override
     public String getHelp() {
         return "Change ";
+    }
+
+    @Override
+    public String getCategory() {
+        return "utility";
     }
 
     @Override

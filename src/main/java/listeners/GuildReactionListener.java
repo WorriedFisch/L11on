@@ -8,6 +8,5 @@ public class GuildReactionListener extends ListenerAdapter {
     @Override
     public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
 
-
     }
 }

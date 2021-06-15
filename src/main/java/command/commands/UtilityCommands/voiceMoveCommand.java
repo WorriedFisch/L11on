@@ -1,4 +1,4 @@
-package command.commands;
+package command.commands.UtilityCommands;
 
 import command.CommandContext;
 import command.ICommand;
@@ -60,6 +60,11 @@ public class voiceMoveCommand implements ICommand {
     @Override
     public String getHelp() {
         return "Moves all Users of a Voice to another Voice";
+    }
+
+    @Override
+    public String getCategory() {
+        return "utility";
     }
 
     @Override

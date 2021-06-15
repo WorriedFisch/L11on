@@ -14,7 +14,7 @@ import util.*;
 
 import javax.security.auth.login.LoginException;
 
-public class DiscordBot{
+public class DiscordBot {
 
     public static JDA jda;
     public JDABuilder builder;
@@ -22,9 +22,7 @@ public class DiscordBot{
 
 
     public DiscordBot() throws LoginException{
-        //LiteSQL.connect();
-        //SQLManager.onCreate();
-
+        LiteSQL.connect();
 
         this.builder = JDABuilder.createDefault(Token.Token);
 
@@ -41,7 +39,8 @@ public class DiscordBot{
                         new MessageListener(),
                         new VoiceListener(),
                         new GuildJoinListener(),
-                        new ReadyListener()
+                        new ReadyListener(),
+                        new ButtonListener()
                 );
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing(Config.PREFIX+"help"));

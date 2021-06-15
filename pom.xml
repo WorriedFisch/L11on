@@ -28,7 +28,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>core.Main</mainClass>
+                            <mainClass>core.DiscordBot</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

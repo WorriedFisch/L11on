@@ -41,7 +41,5 @@ public class MessageListener extends ListenerAdapter {
             manager.handle(event);
         }
 
-
-
     }
 }

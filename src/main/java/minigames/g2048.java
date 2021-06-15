@@ -128,4 +128,9 @@ public class g2048 implements ICommand {
     public String getHelp() {
         return "Play 2048 in discord";
     }
+
+    @Override
+    public String getCategory() {
+        return "game";
+    }
 }

@@ -2,16 +2,11 @@ package core;
 
 import command.CommandContext;
 import command.ICommand;
-import command.commands.changeNicknameCommand;
-import command.commands.helpCommand;
-import command.commands.pingCommand;
-import command.commands.voiceMoveCommand;
+import command.commands.UtilityCommands.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import util.Config;
 
 import javax.annotation.Nullable;
-import java.io.File;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +23,10 @@ public class CommandManager {
         addCommand(new voiceMoveCommand());
         addCommand(new changeNicknameCommand());
 
+        addCommand(new addRoleCommand());
+        addCommand(new removeRoleCommand());
+
+
 
     }
 
@@ -40,17 +39,27 @@ public class CommandManager {
 
         commands.add(cmd);
     }
+    public List<ICommand> getCommands(String category) {
 
+        List<ICommand> commands = new ArrayList<ICommand>();
+
+        for (ICommand cmd : this.commands) {
+            if (cmd.getCategory().equalsIgnoreCase(category)) {
+                commands.add(cmd);
+            }
+        }
+        return commands;
+    }
     public List<ICommand> getCommands() {
         return commands;
     }
 
     @Nullable
     public ICommand getCommand(String search){
-        String searchLower = search.toLowerCase();
+        String searchLower = search;
 
         for (ICommand cmd : this.commands) {
-            if (cmd.getName().equals(searchLower) || cmd.getAliases().contains(searchLower)) {
+            if (cmd.getName().equalsIgnoreCase(searchLower) || cmd.getAliases().contains(searchLower)) {
                 return cmd;
             }
         }

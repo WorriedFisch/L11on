@@ -1,4 +1,4 @@
-package command.commands;
+package command.commands.UtilityCommands;
 
 import command.CommandContext;
 import command.ICommand;
@@ -29,6 +29,11 @@ public class pingCommand implements ICommand {
     @Override
     public String getHelp(){
         return "Shows the current Ping from the bot to the discord servers";
+    }
+
+    @Override
+    public String getCategory() {
+        return "utility";
     }
 
     @Override

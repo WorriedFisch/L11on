@@ -1,0 +1,73 @@
+package functions;
+
+import core.LiteSQL;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class stickyRoles {
+    public static void guildMemberJoin(GuildMemberJoinEvent event) {
+
+        Guild guild = event.getGuild();
+        Member member = event.getMember();
+
+        Long guildId = guild.getIdLong();
+        Long memberId = member.getIdLong();
+        List<Long> roleIds = new ArrayList<Long>();
+
+        if (member.getUser().isBot()){
+            return;
+        }
+
+
+        ResultSet set = LiteSQL.onQuery("SELECT roleId FROM stickyRoles WHERE guildId = " + guildId + " AND memberId = " + memberId);
+        ResultSet set2 = LiteSQL.onQuery("SELECT stickyRoles FROM guildSettings WHERE guildId = " + guildId);
+
+        try {
+            if (set2.getInt("stickyRoles") == 0){
+                return;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        try {
+
+            while (set.next()){
+                roleIds.add(set.getLong("roleId"));
+            }
+
+            for (Long roleId:roleIds) {
+                Role role = guild.getRoleById(roleId);
+
+                guild.addRoleToMember(member, role).queue();
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void guildMemberLeave(GuildMemberLeaveEvent event){
+            Long memberId = event.getMember().getIdLong();
+            Long guildId = event.getGuild().getIdLong();
+
+            LiteSQL.onUpdate("DELETE FROM stickyRoles WHERE memberId='"+memberId+"' AND guildId='"+guildId+"'");
+
+            List<Role> roles = event.getMember().getRoles();
+
+            for (Role r : roles) {
+                LiteSQL.onUpdate("INSERT INTO stickyRoles (guildId, memberId, roleId) VALUES(" + guildId + ", " + memberId + ", " + r.getIdLong() + ")");
+            }
+
+    }
+
+}

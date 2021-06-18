@@ -18,11 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static util.Config.Verifiziertrole;
 
 
 public class VoiceListener extends ListenerAdapter
 {
+
+    /*
     public static List<VoiceChannel> channels = new ArrayList<>();
     public static void createChannel(GuildVoiceJoinEvent event){
 
@@ -31,7 +32,6 @@ public class VoiceListener extends ListenerAdapter
         Guild guild = event.getGuild();
         Long guildid = event.getGuild().getIdLong();
         Long joinedchannelid = event.getChannelJoined().getIdLong();
-        Role Verifiziertrole = Config.Verifiziertrole;
         ResultSet set = LiteSQL.onQuery("SELECT channelid FROM tempvoices WHERE guildid = " + guildid + " AND channelid = " + joinedchannelid);
 
 
@@ -134,6 +134,8 @@ public class VoiceListener extends ListenerAdapter
 
         }
 
-         */
+
     }
+
+     */
 }

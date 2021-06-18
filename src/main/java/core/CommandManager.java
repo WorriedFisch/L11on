@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class CommandManager {
-    private final List<ICommand> commands = new ArrayList<>();
+    public static List<ICommand> commands = new ArrayList<>();
 
     public CommandManager(){
 
@@ -25,8 +25,6 @@ public class CommandManager {
 
         addCommand(new addRoleCommand());
         addCommand(new removeRoleCommand());
-
-
 
     }
 

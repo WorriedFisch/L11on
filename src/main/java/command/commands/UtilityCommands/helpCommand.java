@@ -1,9 +1,11 @@
 package command.commands.UtilityCommands;
 
+import com.jagrosh.jdautilities.command.Command;
 import command.CommandContext;
 import command.ICommand;
 import core.CommandManager;
 import emoji4j.EmojiUtils;
+import listeners.MessageListener;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import net.dv8tion.jda.api.entities.Emoji;
@@ -47,10 +49,11 @@ public class helpCommand implements ICommand {
                 .addField(":gear: Settings", "`"+ Config.PREFIX + "help settings`", true)
                 .addField(":game_die: Minigames", "`"+ Config.PREFIX + "help settings`", true);
 
+
         channel.sendMessage(builder2.build()).setActionRow(
-                Button.success("helpUtil", Emoji.fromUnicode("U+1F6E0")),
-                Button.success("helpSettings", Emoji.fromUnicode("U+2699")),
-                Button.success("helpMinigames", Emoji.fromUnicode("U+1F3B2"))
+                Button.success("UtilityCmd", Emoji.fromUnicode("U+1F6E0")),
+                Button.success("SettingCmd", Emoji.fromUnicode("U+2699")),
+                Button.success("MinigameCmd", Emoji.fromUnicode("U+1F3B2"))
         ).queue();
 
 
@@ -100,10 +103,38 @@ public class helpCommand implements ICommand {
         return List.of("commands", "cmds", "commandlist");
     }
 
-    public static void categorieHelp(Member member, Message message){
+    public static void categorieHelp(Member member,String categorie,Message message){
+
+        TextChannel channel = message.getTextChannel();
+
+        EmbedBuilder builder = new EmbedBuilder();
+
+        builder
+                .setTitle("L11ons all Commands")
+                .setColor(10181046)
+                .setDescription("Help for all commands")
+                .setFooter(member.getEffectiveName(), member.getUser().getAvatarUrl());
+
+        for (ICommand cmd:CommandManager.commands) {
+            if (cmd.getCategory().equalsIgnoreCase(categorie)){
+                builder.addField(cmd.getName(),"`" + cmd.getHelp() + "`",true);
+            }
+        }
+
+        StringBuilder commandList = new StringBuilder();
+
+        for (ICommand cmd:CommandManager.commands) {
+            if (cmd.getCategory().equalsIgnoreCase(categorie)){
+                commandList.append("`" + cmd.getName() + "`, ");
+            }
+        }
+        builder.setTitle(Config.emojiForCategorie.get(categorie) + " " + categorie.replace("Cmd","") + " Commands");
+        builder.setDescription(commandList);
 
 
-        
+        channel.sendMessage(builder.build()).queue();
+
+
     }
 
 

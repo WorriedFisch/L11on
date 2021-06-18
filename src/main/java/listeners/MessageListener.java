@@ -1,6 +1,5 @@
 package listeners;
 
-
 import core.CommandManager;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -16,7 +15,8 @@ import util.Config;
 public class MessageListener extends ListenerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageListener.class);
-    private final CommandManager manager = new CommandManager();
+    public static CommandManager manager = new CommandManager();
+
 
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {

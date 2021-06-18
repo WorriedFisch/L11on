@@ -64,7 +64,7 @@ public class voiceMoveCommand implements ICommand {
 
     @Override
     public String getCategory() {
-        return "utility";
+        return "UtilityCmd";
     }
 
     @Override

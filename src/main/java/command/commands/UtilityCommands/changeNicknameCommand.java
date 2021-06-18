@@ -63,7 +63,7 @@ public class changeNicknameCommand implements ICommand {
 
     @Override
     public String getCategory() {
-        return "utility";
+        return "UtilityCmd";
     }
 
     @Override

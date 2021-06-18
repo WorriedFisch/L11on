@@ -33,7 +33,7 @@ public class pingCommand implements ICommand {
 
     @Override
     public String getCategory() {
-        return "utility";
+        return "UtilityCmd";
     }
 
     @Override

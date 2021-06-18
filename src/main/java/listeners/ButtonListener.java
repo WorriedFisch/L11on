@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import util.Config;
 
 
 public class ButtonListener extends ListenerAdapter {
@@ -17,10 +18,9 @@ public class ButtonListener extends ListenerAdapter {
         } else if (event.getComponentId().equals("emoji")) {
             event.editMessage("That button didn't say click me").queue(); // update the message
 
-        }if (event.getComponentId().equals("helpSettings")) {
+        }else if (Config.commandCategories.contains(event.getComponentId())) {
+            helpCommand.categorieHelp(event.getMember(), event.getComponentId(), event.getMessage());
 
-            Member member = event.getMember();
-            Message message = event.getMessage();
 
         }
     }

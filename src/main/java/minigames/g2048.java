@@ -1,11 +1,12 @@
 package minigames;
 
-import command.CommandContext;
 import command.ICommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.javatuples.Pair;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class g2048 implements ICommand {
+public class g2048{
 
 
     private static HashMap<Long, Pair<Integer, Message>> id = new HashMap<Long,Pair<Integer, Message>>();
@@ -103,9 +104,9 @@ public class g2048 implements ICommand {
 
     }
 
-    public void handle(CommandContext ctx) {
+    public void handle(SlashCommandEvent event) {
 
-        GuildMessageReceivedEvent event = ctx.getEvent();
+
 
 
 
@@ -142,5 +143,9 @@ public class g2048 implements ICommand {
 
     public List<String> getAliases(){
         return List.of();
+    }
+
+    public CommandData getCommandData() {
+        return new CommandData(this.getName(), this.getHelp());
     }
 }

@@ -40,7 +40,8 @@ public class DiscordBot {
                         new VoiceListener(),
                         new GuildJoinListener(),
                         new ReadyListener(),
-                        new ButtonListener()
+                        new ButtonListener(),
+                        new SlashCommandListener()
                 );
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing(Config.PREFIX+"help"));

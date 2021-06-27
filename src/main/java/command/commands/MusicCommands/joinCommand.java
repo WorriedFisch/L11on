@@ -1,10 +1,11 @@
 package command.commands.MusicCommands;
 
-import command.CommandContext;
 import command.ICommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
@@ -12,13 +13,11 @@ import java.util.List;
 
 public class joinCommand implements ICommand {
     @Override
-    public void handle(CommandContext ctx) {
-
-        GuildMessageReceivedEvent event = ctx.getEvent();
+    public void handle(SlashCommandEvent event) {
 
         Guild guild = event.getGuild();
         Member member = event.getMember();
-        TextChannel channel = event.getChannel();
+        MessageChannel channel = event.getChannel();
 
         if (member.getVoiceState().inVoiceChannel()){
 
@@ -46,11 +45,11 @@ public class joinCommand implements ICommand {
         return List.of("summon");
     }
 
-    public List<OptionData> getOptionData() {
+    public Permission getPermission() {
         return null;
     }
 
-    public Permission getPermission() {
-        return null;
+    public CommandData getCommandData() {
+        return new CommandData(this.getName(), this.getHelp());
     }
 }

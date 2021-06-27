@@ -1,14 +1,14 @@
 package command.commands;
 
-import command.CommandContext;
+import command.ICommand;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.util.List;
 
-public abstract class settingsCommand {
+public abstract class settingsCommand implements ICommand {
 
-    public void handle(CommandContext ctx) {
+    public void handle(SlashCommandEvent event) {
 
     }
 
@@ -24,8 +24,6 @@ public abstract class settingsCommand {
         return null;
     }
 
-    public abstract List<OptionData> getOptionData();
-
     public Permission getPermission() {
         return null;
     }
@@ -33,4 +31,5 @@ public abstract class settingsCommand {
     public List<String> getAliases(){
         return List.of();
     }
+
 }

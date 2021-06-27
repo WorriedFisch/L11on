@@ -1,13 +1,15 @@
 package command.commands.UtilityCommands;
 
-import command.CommandContext;
+
 import command.ICommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import util.Config;
 
@@ -15,9 +17,10 @@ import java.util.List;
 
 public class changeNicknameCommand implements ICommand {
 
-    public void handle(CommandContext ctx) {
+    public void handle(SlashCommandEvent event) {
 
-        GuildMessageReceivedEvent event = ctx.getEvent();
+        /*
+
         List<Role> roles = event.getMessage().getMentionedRoles();
 
 
@@ -48,6 +51,8 @@ public class changeNicknameCommand implements ICommand {
                     }
                 }
             }
+
+         */
         }
 
     public String getName() {
@@ -62,12 +67,13 @@ public class changeNicknameCommand implements ICommand {
         return "UtilityCmd";
     }
 
-    public List<String> getAliases() {
-        return List.of("ck");
+    @Override
+    public CommandData getCommandData() {
+        return new CommandData(this.getName(), this.getHelp()).setDefaultEnabled(false);
     }
 
-    public List<OptionData> getOptionData() {
-        return null;
+    public List<String> getAliases() {
+        return List.of("ck");
     }
 
     public Permission getPermission() {

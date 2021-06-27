@@ -1,19 +1,19 @@
 package command.commands.UtilityCommands;
 
-import command.CommandContext;
 import command.ICommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
 public class pingCommand implements ICommand {
     @Override
-    public void handle(CommandContext ctx) {
-        JDA jda = ctx.getJDA();
-        GuildMessageReceivedEvent event = ctx.getEvent();
+    public void handle(SlashCommandEvent event) {
+        JDA jda = event.getJDA();
 
 
 
@@ -35,12 +35,12 @@ public class pingCommand implements ICommand {
         return "UtilityCmd";
     }
 
-    public List<String> getAliases() {
-        return List.of("test");
+    public CommandData getCommandData() {
+        return new CommandData(this.getName(), this.getHelp()).setDefaultEnabled(false);
     }
 
-    public List<OptionData> getOptionData() {
-        return null;
+    public List<String> getAliases() {
+        return List.of("test");
     }
 
     public Permission getPermission() {

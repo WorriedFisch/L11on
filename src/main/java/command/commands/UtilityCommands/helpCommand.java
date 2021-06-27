@@ -1,6 +1,5 @@
 package command.commands.UtilityCommands;
 
-import command.CommandContext;
 import command.ICommand;
 import command.commands.MusicCommands.joinCommand;
 import core.CommandManager;
@@ -11,6 +10,8 @@ import net.dv8tion.jda.api.entities.Emoji;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.components.Button;
 import util.Config;
@@ -27,14 +28,13 @@ public class helpCommand implements ICommand{
     }
 
     @Override
-    public void handle(@Nullable CommandContext ctx) {
+    public void handle(SlashCommandEvent event) {
 
-        List<String> args = ctx.getArgs();
-        TextChannel channel = ctx.getChannel();
+        TextChannel channel = event.getTextChannel();
 
         EmbedBuilder builder2 = new EmbedBuilder();
 
-        if (args.size() == 0){
+        if (true){
             builder2
                     .setTitle("L11ons all Commands")
                     .setColor(10181046)
@@ -53,7 +53,7 @@ public class helpCommand implements ICommand{
         }
 
 
-        String search = args.get(0);
+        String search = event.getOption("cmd").getAsString();
         ICommand command = manager.getCommand(search);
 
         if (command == null) {
@@ -75,6 +75,11 @@ public class helpCommand implements ICommand{
 
     public String getCategory() {
         return "";
+    }
+
+    @Override
+    public CommandData getCommandData() {
+        return new CommandData(this.getName(), this.getHelp()).setDefaultEnabled(false);
     }
 
 
@@ -120,10 +125,6 @@ public class helpCommand implements ICommand{
 
     }
 
-
-    public List<OptionData> getOptionData() {
-        return null;
-    }
 
     public Permission getPermission() {
         return null;

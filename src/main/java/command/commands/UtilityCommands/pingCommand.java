@@ -3,7 +3,9 @@ package command.commands.UtilityCommands;
 import command.CommandContext;
 import command.ICommand;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
@@ -21,23 +23,27 @@ public class pingCommand implements ICommand {
 
     }
 
-    @Override
     public String getName() {
         return "ping";
     }
 
-    @Override
     public String getHelp(){
         return "Shows the current Ping from the bot to the discord servers";
     }
 
-    @Override
     public String getCategory() {
         return "UtilityCmd";
     }
 
-    @Override
     public List<String> getAliases() {
         return List.of("test");
+    }
+
+    public List<OptionData> getOptionData() {
+        return null;
+    }
+
+    public Permission getPermission() {
+        return null;
     }
 }

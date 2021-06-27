@@ -2,13 +2,15 @@ package minigames;
 
 import command.CommandContext;
 import command.ICommand;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.javatuples.Pair;
-import org.javatuples.Tuple;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 
@@ -101,7 +103,6 @@ public class g2048 implements ICommand {
 
     }
 
-    @Override
     public void handle(CommandContext ctx) {
 
         GuildMessageReceivedEvent event = ctx.getEvent();
@@ -119,18 +120,27 @@ public class g2048 implements ICommand {
 
     }
 
-    @Override
     public String getName() {
         return "2048";
     }
 
-    @Override
     public String getHelp() {
         return "Play 2048 in discord";
     }
 
-    @Override
     public String getCategory() {
         return "game";
+    }
+
+    public List<OptionData> getOptionData() {
+        return null;
+    }
+
+    public Permission getPermission() {
+        return null;
+    }
+
+    public List<String> getAliases(){
+        return List.of();
     }
 }

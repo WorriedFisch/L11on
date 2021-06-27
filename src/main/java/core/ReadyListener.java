@@ -1,22 +1,42 @@
 package core;
 
+import command.ICommand;
 import net.dv8tion.jda.api.entities.Emoji;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.privileges.CommandPrivilege;
 import net.dv8tion.jda.api.interactions.components.Button;
-
-import java.util.concurrent.TimeUnit;
 
 public class ReadyListener extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event){
 
         Guild guild = event.getJDA().getGuildById(790885170411601920l);
+
+        for (ICommand cmd:CommandManager.commands) {
+            CommandData commandData = new CommandData(cmd.getName(), cmd.getHelp());
+
+            commandData.addOptions(cmd.getOptionData());
+
+            guild.upsertCommand(commandData);
+
+        }
+
+
+        guild.retrieveCommands().queue(commands -> {
+
+            for (Command cmd:commands) {
+                cmd.delete().queue();
+            }
+
+        });
+
+
+
 
 
         guild.upsertCommand(new CommandData("test","say hello")
@@ -33,6 +53,7 @@ public class ReadyListener extends ListenerAdapter {
 
     @Override
     public void onSlashCommand(SlashCommandEvent event) {
+
         if (event.getName().equals("test")) {
             event.reply("Click the button to say hello ")//event.getOption("user").getAsMember().getNickname()
                     .addActionRow(

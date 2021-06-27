@@ -8,11 +8,11 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
 public class voiceMoveCommand implements ICommand {
-    @Override
     public void handle(CommandContext ctx) {
         GuildMessageReceivedEvent event = ctx.getEvent();
         Member member = event.getMember();
@@ -52,23 +52,27 @@ public class voiceMoveCommand implements ICommand {
 
     }
 
-    @Override
     public String getName() {
         return "voicemove";
     }
 
-    @Override
     public String getHelp() {
         return "Moves all Users of a Voice to another Voice";
     }
 
-    @Override
     public String getCategory() {
         return "UtilityCmd";
     }
 
-    @Override
     public List<String> getAliases() {
         return List.of("vm");
+    }
+
+    public List<OptionData> getOptionData() {
+        return null;
+    }
+
+    public Permission getPermission() {
+        return null;
     }
 }

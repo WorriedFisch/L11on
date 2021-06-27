@@ -7,15 +7,14 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import util.Config;
 
 import java.util.List;
 
 public class changeNicknameCommand implements ICommand {
 
-    @Override
     public void handle(CommandContext ctx) {
 
         GuildMessageReceivedEvent event = ctx.getEvent();
@@ -51,23 +50,27 @@ public class changeNicknameCommand implements ICommand {
             }
         }
 
-    @Override
     public String getName() {
         return "changenickname";
     }
 
-    @Override
     public String getHelp() {
-        return "Change ";
+        return "Change the Nickname of all Members with a role ";
     }
 
-    @Override
     public String getCategory() {
         return "UtilityCmd";
     }
 
-    @Override
     public List<String> getAliases() {
         return List.of("ck");
+    }
+
+    public List<OptionData> getOptionData() {
+        return null;
+    }
+
+    public Permission getPermission() {
+        return null;
     }
 }

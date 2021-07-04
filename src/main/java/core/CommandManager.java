@@ -1,6 +1,7 @@
 package core;
 
 import command.ICommand;
+import command.commands.AdminCommands.updateCommands;
 import command.commands.UtilityCommands.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
@@ -23,6 +24,7 @@ public class CommandManager {
         addCommand(new removeRoleCommand());
 
         addCommand(new purgeCommand());
+        addCommand(new updateCommands());
 
     }
 

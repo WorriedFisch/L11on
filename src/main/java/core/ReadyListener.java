@@ -38,17 +38,6 @@ public class ReadyListener extends ListenerAdapter {
             });
         }
 
-
-        guild.retrieveCommands().queue(commands -> {
-
-            for (Command cmd:commands) {
-                //cmd.delete().queue();
-            }
-
-        });
-
-
-
     }
 
 

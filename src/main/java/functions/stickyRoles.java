@@ -27,16 +27,23 @@ public class stickyRoles {
         }
 
 
-        ResultSet set = LiteSQL.onQuery("SELECT roleId FROM stickyRoles WHERE guildId = " + guildId + " AND memberId = " + memberId);
-        ResultSet set2 = LiteSQL.onQuery("SELECT stickyRoles FROM guildSettings WHERE guildId = " + guildId);
+
+
+        ResultSet set = LiteSQL.onQuery("SELECT stickyRoles FROM guildSettings WHERE guildId = " + guildId);
+
 
         try {
-            if (set2.getInt("stickyRoles") == 0){
+            if (set.getInt("stickyRoles") == 0){
                 return;
             }
+            set.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
+
+        set = LiteSQL.onQuery("SELECT roleId FROM stickyRoles WHERE guildId = " + guildId + " AND memberId = " + memberId);
 
         try {
 
@@ -44,15 +51,18 @@ public class stickyRoles {
                 roleIds.add(set.getLong("roleId"));
             }
 
-            for (Long roleId:roleIds) {
-                Role role = guild.getRoleById(roleId);
 
-                guild.addRoleToMember(member, role).queue();
-            }
-
+            set.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
+
+        for (Long roleId:roleIds) {
+            Role role = guild.getRoleById(roleId);
+
+            guild.addRoleToMember(member, role).queue();
+        }
+
     }
 
 
@@ -60,7 +70,7 @@ public class stickyRoles {
             Long memberId = event.getMember().getIdLong();
             Long guildId = event.getGuild().getIdLong();
 
-            LiteSQL.onUpdate("DELETE FROM stickyRoles WHERE memberId='"+memberId+"' AND guildId='"+guildId+"'");
+            LiteSQL.onUpdate("DELETE FROM stickyRoles WHERE memberId='" + memberId + "' AND guildId='" + guildId + "'");
 
             List<Role> roles = event.getMember().getRoles();
 

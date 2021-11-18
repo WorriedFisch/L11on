@@ -26,14 +26,6 @@ public class SlashCommandListener extends ListenerAdapter  {
         String prefix = Config.PREFIX;
         String raw = event.getName();
 
-
-        if (raw.equalsIgnoreCase(prefix + "shutdown")
-                && user.getId().equals(Config.ownerId)) {
-            LOGGER.info("Shutting down");
-            event.getJDA().shutdown();
-            BotCommons.shutdown(event.getJDA());
-        }
-
         manager.handle(event);
 
     }

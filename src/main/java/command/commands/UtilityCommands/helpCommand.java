@@ -1,7 +1,6 @@
 package command.commands.UtilityCommands;
 
 import command.ICommand;
-import command.commands.MusicCommands.joinCommand;
 import core.CommandManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -11,12 +10,14 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.commands.Command;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.components.Button;
 import util.Config;
 
-import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class helpCommand implements ICommand{
@@ -45,23 +46,20 @@ public class helpCommand implements ICommand{
                     .addField(":game_die: Minigames", "`"+ Config.PREFIX + "help settings`", true);
 
 
-            channel.sendMessage(builder2.build()).setActionRow(
+            event.replyEmbeds(builder2.build()).addActionRow(
                     Button.success("UtilityCmd", Emoji.fromUnicode("U+1F6E0")),
                     Button.success("SettingCmd", Emoji.fromUnicode("U+2699")),
-                    Button.success("MinigameCmd", Emoji.fromUnicode("U+1F3B2"))
-            ).queue();
+                    Button.success("MinigameCmd", Emoji.fromUnicode("U+1F3B2"))).queue();
+        }
+
+        if (event.getOption("cmd") != null){
+            String search = event.getOption("cmd").getAsString();
+            ICommand command = manager.getCommand(search);
+            event.reply(command.getHelp() + "   ").queue();
+
         }
 
 
-        String search = event.getOption("cmd").getAsString();
-        ICommand command = manager.getCommand(search);
-
-        if (command == null) {
-            channel.sendMessage("Nothing found for " + search).queue();
-            return;
-        }
-
-        channel.sendMessage(command.getHelp() + "   ").queue();
     }
 
     public String getName() {
@@ -79,7 +77,17 @@ public class helpCommand implements ICommand{
 
     @Override
     public CommandData getCommandData() {
-        return new CommandData(this.getName(), this.getHelp()).setDefaultEnabled(false);
+
+        List<Command.Choice> choices = new ArrayList<>();
+        for (ICommand cmd:CommandManager.commands) {
+            choices.add(new Command.Choice(cmd.getName(), cmd.getName()));
+        }
+
+        return new CommandData(this.getName(), this.getHelp())
+                                .addOptions(List.of(
+                                        new OptionData(OptionType.STRING,"command","Get hel pto the specified Command", false)
+                                                .addChoices(choices))
+                                ).setDefaultEnabled(true);
     }
 
 

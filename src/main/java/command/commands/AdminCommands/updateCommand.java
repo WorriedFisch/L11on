@@ -2,6 +2,7 @@ package command.commands.AdminCommands;
 
 import command.ICommand;
 import core.CommandManager;
+import core.LiteSQL;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -14,12 +15,24 @@ import java.util.List;
 
 import static core.DiscordBot.jda;
 
-public class updateCommands implements ICommand {
+public class updateCommand implements ICommand {
     @Override
     public void handle(SlashCommandEvent event) {
 
+
         Guild guild = event.getGuild();
 
+        event.deferReply(true).queue();
+        event.getHook().editOriginal("updating all commands know").queue();
+
+        updateCommands(guild);
+
+        event.getHook().editOriginal("updated all commands successfully").queue();
+
+
+    }
+
+    public void updateCommands(Guild guild){
         guild.retrieveCommands().queue(commands -> {
 
             for (Command cmd:commands) {
@@ -40,8 +53,6 @@ public class updateCommands implements ICommand {
 
             });
         }
-
-        event.reply("updated all commands successfully");
     }
 
     @Override
@@ -73,4 +84,6 @@ public class updateCommands implements ICommand {
     public CommandData getCommandData() {
         return new CommandData(this.getName(), this.getHelp()).setDefaultEnabled(false);
     }
+
+
 }

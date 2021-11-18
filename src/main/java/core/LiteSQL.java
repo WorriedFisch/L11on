@@ -24,8 +24,9 @@ public class LiteSQL {
 
             System.out.println("Vernindung zur Datenbank hergestellt.");
 
-            stmt = connection.createStatement();
 
+            stmt = connection.createStatement();
+            stmt.close();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }

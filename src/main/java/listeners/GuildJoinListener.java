@@ -31,7 +31,7 @@ public class GuildJoinListener extends ListenerAdapter {
     public void onGuildJoin(GuildJoinEvent event) {
         Long guildId = event.getGuild().getIdLong();
 
-        //LiteSQL.onUpdate("INSERT IGNORE INTO guildSettings (guildId, stickyRoles) VALUES(" + guildId + ", 0");
+        //LiteSQL.onUpdate("INSERT IGNORE INTO guildSettings (guildId, stickyRoles) VALUES (" + guildId + ", 0");
 
 
     }

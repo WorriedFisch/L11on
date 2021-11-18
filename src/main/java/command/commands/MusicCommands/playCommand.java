@@ -13,7 +13,6 @@ import java.util.List;
 public class playCommand implements ICommand {
     public void handle(SlashCommandEvent event) {
 
-        System.out.println("play");
 
     }
 
@@ -35,7 +34,8 @@ public class playCommand implements ICommand {
 
 
     public CommandData getCommandData() {
-        return new CommandData(this.getName(), this.getHelp());
+        return new CommandData(this.getName(), this.getHelp())
+                .addOption(OptionType.STRING,"Song name or url","the name of the song the bot should play").setDefaultEnabled(false);
     }
 
     /*

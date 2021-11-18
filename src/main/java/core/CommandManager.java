@@ -1,11 +1,18 @@
 package core;
 
 import command.ICommand;
-import command.commands.AdminCommands.updateCommands;
-import command.commands.UtilityCommands.*;
+import command.commands.AdminCommands.commandSettingsCommand;
+import command.commands.AdminCommands.updateCommand;
+import command.commands.ManagemantCommands.*;
+import command.commands.UtilityCommands.helpCommand;
+import command.commands.UtilityCommands.instCommand;
+import command.commands.UtilityCommands.pingCommand;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
-import javax.annotation.Nullable;
+import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +31,10 @@ public class CommandManager {
         addCommand(new removeRoleCommand());
 
         addCommand(new purgeCommand());
-        addCommand(new updateCommands());
+        addCommand(new updateCommand());
+        addCommand(new commandSettingsCommand());
+        addCommand(new instCommand());
+        addCommand(new talkCommand());
 
     }
 
@@ -52,28 +62,59 @@ public class CommandManager {
         return commands;
     }
 
-    @Nullable
-    public ICommand getCommand(String search){
-        String searchLower = search;
+    public List<ICommand> getButtonAction(final String search){
+        return commands;
+    }
 
-        for (ICommand cmd : this.commands) {
-            if (cmd.getName().equalsIgnoreCase(searchLower) || cmd.getAliases().contains(searchLower)) {
-                return cmd;
-            }
-        }
+    public ICommand getCommand(final String search){
 
-        return null;
+        return commands
+                .stream()
+                .filter(cmd -> cmd.getName().equalsIgnoreCase(search) || cmd.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(search)))
+                .findAny()
+                .orElse(null);
     }
 
     public void handle(SlashCommandEvent event) {
+        ICommand cmd = getCommand(event.getName());
+
+        ResultSet set = LiteSQL.onQuery("SELECT enabled FROM commandSettings WHERE commandName = '" + cmd.getName() + "'");
 
 
-        ICommand cmd = this.getCommand(event.getName());
+        try {
 
-        if (cmd != null) {
+            if (set.isClosed()){
+                System.out.println("set is closed");
+                LiteSQL.onUpdate("INSERT INTO commandSettings (commandName, enabled) VALUES ('" + cmd.getName() + "', 1);");
 
-            cmd.handle(event);
+            }
+
+            set.next();
+            if (set.getInt("enabled") == 0){
+
+                EmbedBuilder builder = new EmbedBuilder();
+
+                builder
+                        .setTitle("Command Status")
+                        .setDescription(cmd.getName())
+                        .setColor(Color.RED);
+
+
+                event.replyEmbeds(builder.build()).queue();
+
+                //event.reply(cmd.getName() + " command is currently disabled\nIf you think this is wrong contact <@562708005905235978>").queue();
+
+                return;
+
+            }
+            set.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
+        cmd.handle(event);
 
     }
 

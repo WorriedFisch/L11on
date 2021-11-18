@@ -1,4 +1,4 @@
-package command.commands.UtilityCommands;
+package command.commands.ManagemantCommands;
 
 import command.ICommand;
 import net.dv8tion.jda.api.Permission;
@@ -6,11 +6,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
-import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +60,8 @@ public class purgeCommand implements ICommand {
             message.deleteOriginal().queueAfter(5, TimeUnit.SECONDS);
         });
 
+
+
     }
 
     @Override
@@ -77,7 +76,7 @@ public class purgeCommand implements ICommand {
 
     @Override
     public String getCategory() {
-        return "UtilityCmd";
+        return "ManagemantCmd";
     }
 
     @Override
@@ -92,6 +91,6 @@ public class purgeCommand implements ICommand {
 
     @Override
     public CommandData getCommandData() {
-        return new CommandData(this.getName(), this.getHelp()).addOption(OptionType.INTEGER,"amount","amount of messages to purge", true);
+        return new CommandData(this.getName(), this.getHelp()).addOption(OptionType.INTEGER,"amount","amount of messages to purge", true).setDefaultEnabled(false);
     }
 }

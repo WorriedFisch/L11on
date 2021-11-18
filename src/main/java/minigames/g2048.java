@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import org.javatuples.Pair;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.Random;
 public class g2048{
 
 
-    private static HashMap<Long, Pair<Integer, Message>> id = new HashMap<Long,Pair<Integer, Message>>();
 
     private static int[][][] field = new int[4][4][1000];
 

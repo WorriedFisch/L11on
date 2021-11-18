@@ -17,8 +17,9 @@ import static core.DiscordBot.jda;
 public class ReadyListener extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event){
+        /*
+        Guild guild = event.getJDA().getGuildById(790885170411601920L);
 
-        Guild guild = event.getJDA().getGuildById(790885170411601920l);
 
         for (ICommand cmd:CommandManager.commands) {
 
@@ -32,6 +33,7 @@ public class ReadyListener extends ListenerAdapter {
 
             });
         }
+         */
 
     }
 

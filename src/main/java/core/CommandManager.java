@@ -9,6 +9,7 @@ import command.commands.UtilityCommands.instCommand;
 import command.commands.UtilityCommands.pingCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import util.Config;
 
 import java.awt.*;
 import java.sql.ResultSet;
@@ -97,12 +98,11 @@ public class CommandManager {
                 builder
                         .setTitle("Command Status")
                         .setDescription(cmd.getName())
-                        .setColor(Color.RED);
-
+                        .setColor(Color.RED)
+                        .addField("Disabled","The " + cmd.getName() + " command is currently disabled \n If you think this is wrong contact <@562708005905235978>",false)
+                        .setFooter(event.getJDA().getUserById(Config.ownerId).getAsTag(), event.getJDA().getUserById(Config.ownerId).getAvatarUrl());
 
                 event.replyEmbeds(builder.build()).queue();
-
-                //event.reply(cmd.getName() + " command is currently disabled\nIf you think this is wrong contact <@562708005905235978>").queue();
 
                 return;
 

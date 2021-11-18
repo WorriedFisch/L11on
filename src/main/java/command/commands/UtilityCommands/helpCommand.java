@@ -37,19 +37,13 @@ public class helpCommand implements ICommand{
 
         if (true){
             builder2
-                    .setTitle("L11ons all Commands")
+                    .setTitle("All Commands of L11on")
                     .setColor(10181046)
-                    .setDescription("Help for all commands")
-                    .setFooter("Use " + Config.PREFIX + "help <command> for command help")
-                    .addField(":tools: Utilities", "`" + Config.PREFIX + "help utility`" , true)
-                    .addField(":gear: Settings", "`"+ Config.PREFIX + "help settings`", true)
-                    .addField(":game_die: Minigames", "`"+ Config.PREFIX + "help settings`", true);
+                    .setDescription("Use /help <command> for specific command help")
+                    .setFooter("Bot managed by " + event.getJDA().getUserById(Config.ownerId).getAsTag(),event.getJDA().getUserById(Config.ownerId).getAvatarUrl());
 
 
-            event.replyEmbeds(builder2.build()).addActionRow(
-                    Button.success("UtilityCmd", Emoji.fromUnicode("U+1F6E0")),
-                    Button.success("SettingCmd", Emoji.fromUnicode("U+2699")),
-                    Button.success("MinigameCmd", Emoji.fromUnicode("U+1F3B2"))).queue();
+            event.replyEmbeds(builder2.build()).queue();
         }
 
         if (event.getOption("cmd") != null){

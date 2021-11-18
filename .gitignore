@@ -2,3 +2,8 @@
 src/main/java/util/Token.java
 Discord-Bot.iml
 datenbank.db
+target/
+dependency-reduced-pom.xml
+identifier.sqlite
+MyLogFile.log
+MyLogFile.log.lck

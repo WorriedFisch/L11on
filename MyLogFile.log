@@ -1,0 +1,4 @@
+Okt. 01, 2021 10:47:18 AM core.DiscordBot main
+INFO: Bot started
+Okt. 01, 2021 10:47:21 AM listeners.ButtonListener onButtonClick
+INFO: 10:47:21: Recieved button Click from button with id: untalkand with label called: press to unmute everyone from guild: G:Zocker Ecke(790885170411601920) from channel: TC:dev(844123199091245096) from message sent at: 2021-09-30T21:17:19.328

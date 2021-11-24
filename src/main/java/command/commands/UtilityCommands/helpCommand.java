@@ -44,6 +44,7 @@ public class helpCommand implements ICommand{
 
 
             event.replyEmbeds(builder2.build()).queue();
+
         }
 
         if (event.getOption("cmd") != null){

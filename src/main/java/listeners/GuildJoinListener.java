@@ -12,7 +12,6 @@ public class GuildJoinListener extends ListenerAdapter {
 
 
 
-
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event){
         stickyRoles.guildMemberJoin(event);

@@ -26,14 +26,14 @@ public class DiscordBot {
     public JDABuilder builder;
     public final AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
 
-    //public static Logger logger = Logger.getLogger("MyLog");
+    public static Logger logger = Logger.getLogger("MyLog");
 
 
 
     public DiscordBot() throws LoginException{
         LiteSQL.connect();
 
-        this.builder = JDABuilder.createDefault(Token.Token);
+        this.builder = JDABuilder.createDefault(Token.token);
 
         builder
                 .setAutoReconnect(true)
@@ -50,6 +50,7 @@ public class DiscordBot {
                         new GuildJoinListener(),
                         new ReadyListener(),
                         new ButtonListener(),
+                        new SelectionMenuListener(),
                         new SlashCommandListener()
                 );
         builder.setStatus(OnlineStatus.ONLINE);
@@ -68,7 +69,7 @@ public class DiscordBot {
 
     public static void main(String[] args) throws LoginException {
         new DiscordBot();
-        /*
+
         FileHandler fh;
 
         try {
@@ -86,7 +87,7 @@ public class DiscordBot {
             e.printStackTrace();
         }
 
-         */
+
     }
 
 }

@@ -31,6 +31,8 @@ public class purgeCommand implements ICommand {
 
         int i = amount;
 
+        int deleteMessages = 0;
+
         for (Message message: channel.getIterableHistory().cache(false)) {
             if (!message.isPinned()){
 
@@ -42,6 +44,7 @@ public class purgeCommand implements ICommand {
 
 
                 messages.add(message);
+                deleteMessages = deleteMessages + 1;
             }
             if (--i <= 0) break;
         }
@@ -50,7 +53,7 @@ public class purgeCommand implements ICommand {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(amount + " messages were deleted \n \n");
+        sb.append(deleteMessages + " messages were deleted \n \n");
 
         for (Member member:userList.keySet()) {
             sb.append("**" + member.getEffectiveName() + ":** " + userList.get(member) + "\n");

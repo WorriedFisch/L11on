@@ -15,6 +15,8 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.components.Button;
+import net.dv8tion.jda.api.interactions.components.selections.SelectOption;
+import net.dv8tion.jda.api.interactions.components.selections.SelectionMenu;
 import util.Config;
 
 import java.util.ArrayList;
@@ -31,21 +33,19 @@ public class helpCommand implements ICommand{
     @Override
     public void handle(SlashCommandEvent event) {
 
-        TextChannel channel = event.getTextChannel();
+        EmbedBuilder builder = new EmbedBuilder();
 
-        EmbedBuilder builder2 = new EmbedBuilder();
+        SelectionMenu menu;
 
-        if (true){
-            builder2
-                    .setTitle("All Commands of L11on")
-                    .setColor(10181046)
-                    .setDescription("Use /help <command> for specific command help")
-                    .setFooter("Bot managed by " + event.getJDA().getUserById(Config.ownerId).getAsTag(),event.getJDA().getUserById(Config.ownerId).getAvatarUrl());
+        SelectionMenu.Builder selectionMenuBuilder = SelectionMenu.create("menu:class")
+                .setPlaceholder("Select your Command to get help");
 
 
-            event.replyEmbeds(builder2.build()).queue();
-
+        for (ICommand cmd:CommandManager.commands) {
+            selectionMenuBuilder.addOption(cmd.getName(),"help_" + cmd.getName());
         }
+
+        menu = selectionMenuBuilder.build();
 
         if (event.getOption("cmd") != null){
             String search = event.getOption("cmd").getAsString();
@@ -53,6 +53,21 @@ public class helpCommand implements ICommand{
             event.reply(command.getHelp() + "   ").queue();
 
         }
+
+        else{
+            builder
+                    .setTitle("All Commands of L11on")
+                    .setColor(10181046)
+                    .setDescription("Use /help <command> for specific command help")
+                    .setFooter("Bot managed by " + event.getJDA().getUserById(Config.ownerId).getAsTag(),event.getJDA().getUserById(Config.ownerId).getAvatarUrl());
+
+
+
+            event.replyEmbeds(builder.build()).addActionRow(menu).queue();
+
+        }
+
+
 
 
     }
